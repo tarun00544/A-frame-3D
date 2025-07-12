@@ -1,0 +1,297 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tarun Kumar - VR Experience</title>
+    <meta name="description" content="Tarun Kumar A-Frame VR Experience">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .info-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-size: 14px;
+            max-width: 300px;
+        }
+        .controls {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 1000;
+            text-align: center;
+        }
+        .vr-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-panel">
+        <h3>🎮 Tarun Kumar VR Experience</h3>
+        <p>• Use mouse to look around</p>
+        <p>• WASD or Arrow keys to move</p>
+        <p>• Click VR button for VR mode</p>
+        <p>• Watch the floating name animation!</p>
+    </div>
+
+    <div class="controls">
+        <span>🎯 Navigate with WASD • Look with Mouse • Press Space for Info</span>
+    </div>
+
+    <a-scene 
+        background="color: #001122" 
+        vr-mode-ui="enabled: true"
+        cursor="rayOrigin: mouse"
+        stats>
+        
+        <!-- Assets -->
+        <a-assets>
+            <!-- Define materials -->
+            <a-mixin id="glow" 
+                geometry="primitive: sphere; radius: 0.1"
+                material="color: #00FFFF; shader: standard; roughness: 0; metalness: 0.5; emissive: #00FFFF; emissiveIntensity: 0.3">
+            </a-mixin>
+            
+            <!-- Particle system -->
+            <a-mixin id="particle"
+                geometry="primitive: sphere; radius: 0.02"
+                material="color: #FFD700; shader: standard; emissive: #FFD700; emissiveIntensity: 0.5">
+            </a-mixin>
+        </a-assets>
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="#404040" intensity="0.5"></a-light>
+        <a-light type="point" position="0 10 0" color="#00FFFF" intensity="1"></a-light>
+        <a-light type="point" position="5 5 5" color="#FF6B6B" intensity="0.8"></a-light>
+        <a-light type="point" position="-5 5 -5" color="#4ECDC4" intensity="0.8"></a-light>
+
+        <!-- Ground -->
+        <a-plane 
+            position="0 -2 0" 
+            rotation="-90 0 0" 
+            width="50" 
+            height="50" 
+            color="#1e1e1e"
+            material="roughness: 0.8; metalness: 0.1"
+            shadow="receive: true">
+        </a-plane>
+
+        <!-- Grid pattern on ground -->
+        <a-plane 
+            position="0 -1.99 0" 
+            rotation="-90 0 0" 
+            width="50" 
+            height="50" 
+            material="src: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJNIDEwIDAgTCAwIDAgMCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9wYXR0ZXJuPgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz4KPHN2Zz4K; repeat: 50 50; transparent: true; opacity: 0.3">
+        </a-plane>
+
+        <!-- Main Name Display - TARUN -->
+        <a-text 
+            id="name-tarun"
+            value="TARUN"
+            position="0 3 -5"
+            align="center"
+            color="#00FFFF"
+            font="roboto"
+            geometry="primitive: plane; width: 6; height: 1.5"
+            material="color: transparent"
+            text="width: 8; color: #00FFFF; shader: msdf"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 20000"
+            shadow="cast: true">
+        </a-text>
+
+        <!-- Kumar text -->
+        <a-text 
+            id="name-kumar"
+            value="KUMAR"
+            position="0 1 -5"
+            align="center"
+            color="#FF6B6B"
+            font="roboto"
+            geometry="primitive: plane; width: 6; height: 1.5"
+            material="color: transparent"
+            text="width: 8; color: #FF6B6B; shader: msdf"
+            animation="property: rotation; to: 0 -360 0; loop: true; dur: 25000"
+            shadow="cast: true">
+        </a-text>
+
+        <!-- Floating spheres around name -->
+        <a-sphere
+            position="3 3 -3"
+            radius="0.2"
+            color="#FFD700"
+            material="shader: standard; roughness: 0; metalness: 0.8; emissive: #FFD700; emissiveIntensity: 0.2"
+            animation="property: position; to: -3 3 -3; loop: true; dur: 8000; dir: alternate; easing: easeInOutSine"
+            shadow="cast: true">
+        </a-sphere>
+
+        <a-sphere
+            position="-3 1 -3"
+            radius="0.15"
+            color="#4ECDC4"
+            material="shader: standard; roughness: 0; metalness: 0.8; emissive: #4ECDC4; emissiveIntensity: 0.3"
+            animation="property: position; to: 3 1 -3; loop: true; dur: 10000; dir: alternate; easing: easeInOutSine"
+            shadow="cast: true">
+        </a-sphere>
+
+        <a-sphere
+            position="2 4 -7"
+            radius="0.1"
+            color="#FF6B6B"
+            material="shader: standard; roughness: 0; metalness: 0.8; emissive: #FF6B6B; emissiveIntensity: 0.4"
+            animation="property: position; to: -2 4 -7; loop: true; dur: 12000; dir: alternate; easing: easeInOutSine"
+            shadow="cast: true">
+        </a-sphere>
+
+        <!-- Particle system -->
+        <a-entity id="particle-system">
+            <!-- Floating particles -->
+            <a-sphere mixin="particle" position="1 2 -4" animation="property: position; to: 1 6 -4; loop: true; dur: 5000; dir: alternate; easing: easeInOutSine"></a-sphere>
+            <a-sphere mixin="particle" position="-1 2 -4" animation="property: position; to: -1 6 -4; loop: true; dur: 6000; dir: alternate; easing: easeInOutSine"></a-sphere>
+            <a-sphere mixin="particle" position="2 1 -6" animation="property: position; to: 2 5 -6; loop: true; dur: 7000; dir: alternate; easing: easeInOutSine"></a-sphere>
+            <a-sphere mixin="particle" position="-2 1 -6" animation="property: position; to: -2 5 -6; loop: true; dur: 8000; dir: alternate; easing: easeInOutSine"></a-sphere>
+            <a-sphere mixin="particle" position="0 1 -3" animation="property: position; to: 0 5 -3; loop: true; dur: 9000; dir: alternate; easing: easeInOutSine"></a-sphere>
+        </a-entity>
+
+        <!-- Decorative rings -->
+        <a-ring
+            position="0 2 -5"
+            radius-inner="3"
+            radius-outer="3.2"
+            color="#00FFFF"
+            material="shader: standard; roughness: 0; metalness: 0.8; emissive: #00FFFF; emissiveIntensity: 0.1; transparent: true; opacity: 0.6"
+            animation="property: rotation; to: 0 0 360; loop: true; dur: 15000"
+            shadow="cast: true">
+        </a-ring>
+
+        <a-ring
+            position="0 2 -5"
+            radius-inner="4"
+            radius-outer="4.2"
+            color="#FF6B6B"
+            material="shader: standard; roughness: 0; metalness: 0.8; emissive: #FF6B6B; emissiveIntensity: 0.1; transparent: true; opacity: 0.4"
+            animation="property: rotation; to: 0 0 -360; loop: true; dur: 20000"
+            shadow="cast: true">
+        </a-ring>
+
+        <!-- Interactive Elements -->
+        <a-box
+            id="info-cube"
+            position="5 0 -3"
+            width="0.5"
+            height="0.5"
+            depth="0.5"
+            color="#4ECDC4"
+            material="shader: standard; roughness: 0.1; metalness: 0.9; emissive: #4ECDC4; emissiveIntensity: 0.2"
+            animation="property: rotation; to: 360 360 360; loop: true; dur: 10000"
+            clickable
+            shadow="cast: true">
+        </a-box>
+
+        <a-text
+            value="Click the cube!"
+            position="5 -0.8 -3"
+            align="center"
+            color="#FFFFFF"
+            text="width: 4">
+        </a-text>
+
+        <!-- Background elements -->
+        <a-entity id="background-elements">
+            <!-- Distant mountains -->
+            <a-triangle
+                position="-10 -1 -15"
+                scale="2 3 1"
+                color="#2C3E50"
+                material="shader: standard; roughness: 0.8">
+            </a-triangle>
+            <a-triangle
+                position="10 -1 -18"
+                scale="3 4 1"
+                color="#34495E"
+                material="shader: standard; roughness: 0.8">
+            </a-triangle>
+            <a-triangle
+                position="0 -1 -20"
+                scale="4 5 1"
+                color="#1A252F"
+                material="shader: standard; roughness: 0.8">
+            </a-triangle>
+        </a-entity>
+
+        <!-- Stars in the sky -->
+        <a-entity id="stars">
+            <a-sphere position="8 8 -10" radius="0.05" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.8"></a-sphere>
+            <a-sphere position="-8 7 -12" radius="0.03" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.6"></a-sphere>
+            <a-sphere position="6 9 -8" radius="0.04" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.7"></a-sphere>
+            <a-sphere position="-6 8 -11" radius="0.02" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.5"></a-sphere>
+            <a-sphere position="0 10 -15" radius="0.06" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.9"></a-sphere>
+            <a-sphere position="4 7 -13" radius="0.03" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.6"></a-sphere>
+            <a-sphere position="-4 9 -9" radius="0.04" color="#FFFFFF" material="emissive: #FFFFFF; emissiveIntensity: 0.7"></a-sphere>
+        </a-entity>
+
+        <!-- Welcome message -->
+        <a-text
+            id="welcome-text"
+            value="Welcome to Tarun Kumar  VR World!"
+            position="0 -0.5 -5"
+            align="center"
+            color="#FFFFFF"
+            text="width: 6; shader: msdf"
+            animation="property: scale; to: 1.1 1.1 1.1; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine">
+        </a-text>
+
+        <!-- Camera with controls -->
+        <a-entity 
+            id="rig" 
+            movement-controls="fly: false; constrainToNavMesh: false"
+            position="0 1.6 0">
+            <a-entity 
+                id="camera" 
+                camera 
+                look-controls 
+                wasd-controls="acceleration: 20"
+                position="0 0 0">
+                
+                <!-- Cursor for interaction -->
+                <a-cursor
+                    id="cursor"
+                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+                    animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+                    raycaster="objects: [clickable]"
+                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                    material="color: #00FFFF; shader: flat"
+                    position="0 0 -1">
+                </a-cursor>
+            </a-entity>
+        </a-entity>
+
+        <!-- Sound effects -->
+        <a-sound
+            id="ambient-sound"
+            src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBzGH0fPTgjMGHm7A7+OZSA0LVqzn77BdGQc+ltryxnkpBSl+zPLZiDwICGS57OihUQ0OUarm7rhiGAg4jdX1z4I2Bh9owfDjnEoODFKm4vC2Yh0HOZPc89WCNgYfasLx45ZNDghOn+b7rWUZByKG0fPTgjMGHm7A7+OZSA0LVqzn77BdGQc+ltryxnkpBSl+zPLZiDwICGS57OihUQ0OUarm7rhiGAg4jdX1z4I2Bh9owfDjnEoODFKm4vC2Yh0HOZPc89WCNgYfasLx45ZNDghOn+b7rWUZByKG0
